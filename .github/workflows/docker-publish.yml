@@ -21,9 +21,9 @@ jobs:
     name: unittest (py3.12)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -43,7 +43,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # arm64 层通过 QEMU 模拟构建（纯 Python 依赖，无需交叉编译）
       - uses: docker/setup-qemu-action@v3
