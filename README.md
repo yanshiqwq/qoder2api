@@ -79,10 +79,11 @@ docker run -d --name qoder2api -p 8963:8963 --restart unless-stopped \
 | `sha-<短哈希>` | 锁定到某个提交，可复现 |
 | `1.2.3` / `1.2` | 打 `v1.2.3` tag 发版时生成 |
 
-也可以在本地构建（同样内容，只是不走 CI 缓存）：
+或者用 compose（`image` 指向 CI 发布的多架构镜像，`build: .` 保留本地构建能力）：
 
 ```bash
-docker compose up -d --build
+docker compose up -d          # 直接拉 ghcr 镜像（amd64 / arm64 各自原生）
+docker compose up -d --build  # 本地构建并覆盖同名 tag
 # 服务监听 http://localhost:8963
 ```
 
@@ -91,8 +92,8 @@ docker compose up -d --build
 ```yaml
 services:
   qoder2api:
+    image: ghcr.io/yanshiqwq/qoder2api:latest
     build: .
-    platform: linux/amd64
     restart: unless-stopped
     ports:
       - "8963:8963"

@@ -1,7 +1,9 @@
 services:
   qoder2api:
+    # CI 发布的多架构镜像（linux/amd64 + linux/arm64），ARM 机器上无需再 pin platform
+    image: ghcr.io/yanshiqwq/qoder2api:latest
+    # 保留本地构建能力：docker compose up -d --build 仍然可用
     build: .
-    platform: linux/amd64
     restart: unless-stopped
     ports:
       - "8963:8963"
