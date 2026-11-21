@@ -66,6 +66,21 @@ OpenAiBridge
 
 ### Docker 部署（推荐）
 
+CI 自动构建多架构镜像并发布到 GHCR（`linux/amd64` / `linux/arm64`），可直接拉取运行，不必本地构建：
+
+```bash
+docker run -d --name qoder2api -p 8963:8963 --restart unless-stopped \
+  ghcr.io/yanshiqwq/qoder2api:latest
+```
+
+| 镜像 tag | 含义 |
+|---|---|
+| `latest` / `main` | 主干最新提交（每次 push 自动重建） |
+| `sha-<短哈希>` | 锁定到某个提交，可复现 |
+| `1.2.3` / `1.2` | 打 `v1.2.3` tag 发版时生成 |
+
+也可以在本地构建（同样内容，只是不走 CI 缓存）：
+
 ```bash
 docker compose up -d --build
 # 服务监听 http://localhost:8963
